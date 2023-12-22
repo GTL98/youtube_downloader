@@ -7,9 +7,6 @@ from pytube import YouTube
 from tkinter import filedialog
 from downloader import downloader
 
-os.system("Xvfb :1 -screen 0 720x720x16 &")
-os.environ['DISPLAY'] = ':1.0'
-
 # --- Configurar o Tkinter --- #
 root = tk.Tk()
 root.withdraw()
