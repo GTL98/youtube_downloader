@@ -7,9 +7,6 @@ from pytube import YouTube
 from tkinter import filedialog
 from downloader import downloader
 
-if os.environ.get('DISPLAY', '') == '':
-    os.environ.__setitem__('DISPLAY', ':0.0')
-
 # --- Configurar o Tkinter --- #
 root = tk.Tk()
 root.withdraw()
