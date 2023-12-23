@@ -4,12 +4,11 @@ import streamlit as st
 from pytube import YouTube
 
 
-def downloader(tipo: str, link: str, caminho: str):
+def downloader(tipo: str, link: str):
     """
     Função responsável por retornar a mídia do vídeo baixado.
     :param tipo: 'Vídeo' ou 'Áudio'.
     :param link: Link do vídeo.
-    :param caminho: Pasta de download informada pelo usuário.
     """
     if tipo == 'Áudio':
         # --- Inicializar a classe --- #
@@ -19,7 +18,7 @@ def downloader(tipo: str, link: str, caminho: str):
         audio = yt.streams.filter(only_audio=True).first()
 
         # --- Armazenar a saída da mídia --- #
-        saida = audio.download(caminho)
+        saida = audio.download()
 
         # --- Converter para MP3 --- #
         base, ext = os.path.splitext(saida)
@@ -37,7 +36,7 @@ def downloader(tipo: str, link: str, caminho: str):
         video = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').first()
 
         # --- Armazenar a saída da mídia --- #
-        video.download(caminho)
+        video.download()
 
         # --- Informar que o download foi concluído --- #
         st.subheader('Download concluído!')

@@ -1,18 +1,9 @@
 # --- Importar as bibliotecas --- #
 import os
-import tkinter as tk
 from PIL import Image
 import streamlit as st
 from pytube import YouTube
-from tkinter import filedialog
 from downloader import downloader
-
-# --- Configurar o Tkinter --- #
-root = tk.Tk()
-root.withdraw()
-
-# --- O seletor de pastas ficará sobre todas as janelas --- #
-root.wm_attributes('-topmost', 1)
 
 # --- Configuração da páginas --- #
 icone = Image.open('./imagens/logo.png')
@@ -58,5 +49,4 @@ with st.container():
             with col_3:
                 baixar = st.button('Baixar')
             if baixar:
-                caminho = filedialog.askdirectory(master=root)  # seleciona a pasta de destino do arquivo
-                downloader(escolha, link, caminho)
+                downloader(escolha, link)
