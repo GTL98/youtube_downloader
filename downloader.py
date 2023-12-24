@@ -1,7 +1,15 @@
-# --- Importar a biblioteca --- #
+# --- Importar as bibliotecas --- #
 import os
+import winreg
 import streamlit as st
 from pytube import YouTube
+
+# --- Caminho da pasta download --- #
+reg_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER,
+                         r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders")
+pasta_download = winreg.QueryValueEx(reg_key, "{374DE290-123F-4565-9164-39C4925E467B}")[0]
+winreg.CloseKey(reg_key)
+CAMINHO = pasta_download.replace('\\', '/')
 
 
 def downloader(tipo: str, link: str):
@@ -18,7 +26,7 @@ def downloader(tipo: str, link: str):
         audio = yt.streams.filter(only_audio=True).first()
 
         # --- Armazenar a saída da mídia --- #
-        saida = audio.download()
+        saida = audio.download(CAMINHO)
 
         # --- Converter para MP3 --- #
         base, ext = os.path.splitext(saida)
@@ -36,7 +44,7 @@ def downloader(tipo: str, link: str):
         video = yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').first()
 
         # --- Armazenar a saída da mídia --- #
-        video.download()
+        video.download(CAMINHO)
 
         # --- Informar que o download foi concluído --- #
         st.subheader('Download concluído!')
